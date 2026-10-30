@@ -1,0 +1,974 @@
+<!--
+# How Software and the Internet Work
+
+## Table of Contents
+
+1. What is Software?
+2. Frontend vs Backend vs Database
+3. What Happens When You Open a Website?
+4. Browser, Client and Server Architecture
+5. HTTP and HTTPS Basics
+6. Request and Response Lifecycle
+7. APIs and How Applications Communicate
+8. DNS, Domain and Hosting
+9. Static vs Dynamic Websites
+
+---
+
+# 1. What is Software?
+
+## Definition
+
+Software is a collection of programs, instructions and related data that tells a computer how to perform specific tasks.
+
+In simple words, software is a set of instructions that allows users to interact with computer hardware and perform different operations.
+
+### Examples of Software
+
+- Google Chrome – Web browsing.
+- WhatsApp – Messaging.
+- MS Word – Document creation.
+- Windows – Operating system.
+- VLC Media Player – Playing multimedia files.
+
+## How Does Software Work?
+
+Software takes input from the user, processes it and produces the required output.
+
+**Basic Working:**
+
+```text
+User Input
+    |
+    v
+Software Processing
+    |
+    v
+Output
+```
+
+**Example: Calculator**
+
+- Input: 10 + 20
+- Processing: Addition operation.
+- Output: 30
+
+## Types of Software
+
+### 1. System Software
+
+System software manages computer hardware and provides a platform for application software.
+
+Examples:
+- Windows
+- Linux
+- macOS
+- Device Drivers
+- Operating Systems
+
+### 2. Application Software
+
+Application software is designed to perform specific tasks for users.
+
+Examples:
+- MS Word
+- Google Chrome
+- Photoshop
+- WhatsApp
+- Microsoft Excel
+
+### 3. Programming Software
+
+Programming software helps developers write, test and debug programs.
+
+Examples:
+- VS Code
+- GCC Compiler
+- JDK
+- IntelliJ IDEA
+
+### Difference Between Hardware and Software
+
+| Hardware | Software |
+|---|---|
+| Physical components of a computer | Collection of programs and instructions |
+| Can be touched | Cannot be physically touched |
+| Examples: CPU, RAM, Keyboard | Examples: Windows, Chrome, MS Word |
+| Performs physical operations | Controls and instructs hardware |
+
+---
+
+
+
+# 2. Frontend vs Backend vs Database
+
+A modern web application generally consists of three major components:
+
+1. Frontend
+2. Backend
+3. Database
+
+## 2.1 Frontend
+
+Frontend is the part of a website or application that users can see and interact with.
+
+It is also called the client-side of an application.
+
+### Responsibilities
+
+- Displaying webpage content.
+- Creating user interfaces.
+- Handling button clicks.
+- Taking user input.
+- Displaying information received from the backend.
+
+### Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| HTML | Defines webpage structure |
+| CSS | Adds styling and layout |
+| JavaScript | Adds interactivity |
+| React | Builds user interfaces |
+| Angular | Frontend framework |
+
+### Example
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Website</title>
+</head>
+<body>
+    <h1>Welcome to My Website</h1>
+    <button>Login</button>
+</body>
+</html>
+```
+
+## 2.2 Backend
+
+Backend is the server-side component of an application.
+
+It handles the internal operations and business logic of an application.
+
+### Responsibilities
+
+- User authentication.
+- Processing user requests.
+- Applying business logic.
+- Communicating with databases.
+- Managing payments.
+- Sending responses to clients.
+
+### Technologies Used
+
+- Node.js
+- Python
+- Java
+- PHP
+- C#
+- Django
+- Spring Boot
+- Express.js
+
+### Example
+
+```javascript
+app.get("/users", (req, res) => {
+    res.send("List of users");
+});
+```
+
+When a client requests `/users`, the backend processes the request and sends a response.
+
+## 2.3 Database
+
+A database is an organized collection of information that can be stored, accessed, updated and managed efficiently.
+
+### Examples of Stored Data
+
+- User information.
+- Product details.
+- Login credentials (stored securely as password hashes).
+- Orders.
+- Payment records.
+
+### Types of Databases
+
+**SQL Databases**
+
+SQL databases store data in structured tables consisting of rows and columns.
+
+Examples:
+- MySQL
+- PostgreSQL
+- Oracle
+
+**NoSQL Databases**
+
+NoSQL databases support different data models, such as documents, key-value pairs and wide-column structures.
+
+Examples:
+- MongoDB
+- Redis
+- Cassandra
+
+### Example SQL Query
+
+```sql
+SELECT * FROM students;
+```
+
+This query retrieves all records from the students table.
+
+## 2.4 How Frontend, Backend and Database Work Together
+
+Example: Online Shopping Application.
+
+1. User clicks the Buy Now button.
+2. Frontend sends a request to the backend.
+3. Backend checks product availability.
+4. Backend communicates with the database.
+5. Database returns the required information.
+6. Backend processes the request.
+7. Frontend displays the result to the user.
+
+```text
+        USER
+          |
+          v
+      FRONTEND
+          |
+          v
+       BACKEND
+          |
+          v
+       DATABASE
+          |
+          v
+       BACKEND
+          |
+          v
+      FRONTEND
+          |
+          v
+        USER
+```
+
+**Remember:**
+
+- Frontend = What users see.
+- Backend = What happens behind the scenes.
+- Database = Where application data is stored.
+
+---
+
+# 3. What Happens When You Open a Website?
+
+When we enter a website address in a browser, several processes happen internally before the webpage appears.
+
+Example:
+
+```text
+https://www.google.com
+```
+
+## Step-by-Step Working
+
+### Step 1: Enter URL
+
+The user enters a website address into the browser.
+
+A URL (Uniform Resource Locator) specifies the location of a resource on the internet.
+
+### Step 2: Browser Cache Check
+
+The browser may check its cache for previously downloaded resources and DNS information.
+
+Caching helps reduce loading time.
+
+### Step 3: DNS Resolution
+
+The browser needs the IP address associated with the domain name.
+
+DNS converts a domain name into an IP address.
+
+Example:
+
+```text
+www.google.com
+       |
+       v
+   DNS Lookup
+       |
+       v
+   IP Address
+```
+
+### Step 4: Establish Connection
+
+The browser establishes a connection with the destination server.
+
+- HTTP/1.1 and HTTP/2 generally use TCP.
+- HTTPS uses TLS to secure the connection.
+- HTTP/3 uses QUIC over UDP.
+
+### Step 5: Send HTTP Request
+
+The browser sends an HTTP request to the server.
+
+Example:
+
+```http
+GET / HTTP/1.1
+Host: www.google.com
+```
+
+### Step 6: Server Processing
+
+The server receives the request and performs the required operations.
+
+It may:
+- Execute backend code.
+- Retrieve database information.
+- Apply business logic.
+- Generate HTML or JSON.
+
+### Step 7: Server Sends Response
+
+The server sends an HTTP response to the browser.
+
+Example:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: text/html
+```
+
+### Step 8: Browser Renders the Webpage
+
+The browser processes the received resources and displays the webpage.
+
+The browser:
+- Parses HTML.
+- Processes CSS.
+- Executes JavaScript.
+- Downloads images and other resources.
+- Displays the final webpage.
+
+## Browser Rendering Concepts
+
+| Concept | Meaning |
+|---|---|
+| DOM | Tree representation of HTML |
+| CSSOM | Tree representation of CSS |
+| Render Tree | Combines DOM and CSS styling information |
+| Layout | Calculates positions and dimensions |
+| Paint | Draws visual elements |
+| Compositing | Combines visual layers |
+
+---
+
+# 4. Browser, Client and Server Architecture
+
+## 4.1 What is a Browser?
+
+A browser is an application that allows users to access and view websites over the internet.
+
+Examples:
+- Google Chrome
+- Mozilla Firefox
+- Microsoft Edge
+- Safari
+- Opera
+
+### Responsibilities of a Browser
+
+1. Sending HTTP requests.
+2. Receiving HTTP responses.
+3. Rendering HTML and CSS.
+4. Executing JavaScript.
+5. Managing cookies and cache.
+
+## 4.2 What is a Client?
+
+A client is a device or application that requests services or resources from a server.
+
+Examples:
+- Laptop browser.
+- Mobile application.
+- Desktop application.
+
+## 4.3 What is a Server?
+
+A server is a computer or software system that provides services, resources or data to clients.
+
+Examples:
+- Web Server
+- Database Server
+- File Server
+- Application Server
+
+## 4.4 Client-Server Architecture
+
+Client-server architecture is a computing model in which clients request services and servers provide those services.
+
+### Working
+
+1. Client sends a request.
+2. Server receives the request.
+3. Server processes the request.
+4. Server sends a response.
+5. Client displays the result.
+
+### Architecture Diagram
+
+```text
+       CLIENT
+     (Browser)
+          |
+          | Request
+          v
+        SERVER
+          |
+          | Processing
+          v
+       DATABASE
+          |
+          | Data
+          v
+        SERVER
+          |
+          | Response
+          v
+       CLIENT
+```
+
+## 4.5 Two-Tier Architecture
+
+Two-tier architecture consists of two layers:
+
+1. Client Layer
+2. Database or Server Layer
+
+The client communicates directly with the database or service layer.
+
+## 4.6 Three-Tier Architecture
+
+Three-tier architecture divides an application into three layers:
+
+1. Presentation Layer – Frontend.
+2. Application Layer – Backend.
+3. Data Layer – Database.
+
+### Advantages
+
+- Better scalability.
+- Improved security.
+- Easier maintenance.
+- Separation of responsibilities.
+
+---
+
+# 5. HTTP and HTTPS Basics
+
+## 5.1 What is HTTP?
+
+HTTP stands for HyperText Transfer Protocol.
+
+It is an application-layer protocol used for communication between clients and web servers.
+
+HTTP defines how clients send requests and how servers return responses.
+
+### Example
+
+When a user opens a website, the browser sends an HTTP request and receives an HTTP response.
+
+## 5.2 What is HTTPS?
+
+HTTPS stands for HyperText Transfer Protocol Secure.
+
+It is HTTP communication secured using TLS (Transport Layer Security).
+
+HTTPS protects communication between clients and servers.
+
+### Benefits of HTTPS
+
+1. Confidentiality – Protects information from being read in transit.
+2. Integrity – Helps detect unauthorized modification of data.
+3. Authentication – Helps verify the identity of the server.
+
+## 5.3 HTTP vs HTTPS
+
+| HTTP | HTTPS |
+|---|---|
+| Uses no TLS encryption | Uses TLS encryption |
+| Data is not protected by TLS | Data is protected in transit |
+| Default port 80 | Default port 443 |
+| No TLS authentication | Supports server authentication through certificates |
+
+## 5.4 HTTP Methods
+
+HTTP methods define the operation that a client wants to perform.
+
+| Method | Purpose |
+|---|---|
+| GET | Retrieve data |
+| POST | Submit or create data |
+| PUT | Replace a resource |
+| PATCH | Partially update a resource |
+| DELETE | Delete a resource |
+
+### Examples
+
+```http
+GET /students
+```
+
+Retrieves student information.
+
+```http
+POST /students
+```
+
+Submits information to create a student.
+
+```http
+DELETE /students/10
+```
+
+Deletes the student whose ID is 10.
+
+## 5.5 HTTP Status Codes
+
+Status codes indicate the result of an HTTP request.
+
+| Status Code | Meaning |
+|---|---|
+| 200 | OK |
+| 201 | Created |
+| 301 | Moved Permanently |
+| 400 | Bad Request |
+| 401 | Unauthorized |
+| 403 | Forbidden |
+| 404 | Not Found |
+| 500 | Internal Server Error |
+| 503 | Service Unavailable |
+
+**Important:** HTTP is an application-layer protocol. HTTPS is HTTP secured using TLS.
+
+---
+
+# 6. Request and Response Lifecycle
+
+The request-response lifecycle describes how communication happens between a client and a server.
+
+## 6.1 HTTP Request
+
+An HTTP request generally contains:
+
+1. Request Method.
+2. URL or Path.
+3. HTTP Version.
+4. Headers.
+5. Optional Request Body.
+
+### Example
+
+```http
+POST /login HTTP/1.1
+Host: example.com
+Content-Type: application/json
+
+{
+    "username": "student",
+    "password": "123456"
+}
+```
+
+### Explanation
+
+- POST – HTTP method.
+- /login – Requested resource.
+- Host – Server domain.
+- Content-Type – Format of request data.
+- Body – Information submitted by the user.
+
+## 6.2 HTTP Response
+
+An HTTP response generally contains:
+
+1. HTTP Version.
+2. Status Code.
+3. Response Headers.
+4. Response Body.
+
+### Example
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "message": "Login successful"
+}
+```
+
+## 6.3 Complete Request-Response Lifecycle
+
+Example: User Login.
+
+1. User enters username and password.
+2. Frontend sends a POST request.
+3. Backend receives the request.
+4. Backend validates the input.
+5. Backend checks the stored password hash.
+6. Backend generates an appropriate response.
+7. Frontend displays the result.
+
+```text
+USER
+ |
+ v
+FRONTEND
+ |
+ | POST /login
+ v
+BACKEND
+ |
+ | Validate Credentials
+ v
+DATABASE
+ |
+ | User Information
+ v
+BACKEND
+ |
+ | HTTP Response
+ v
+FRONTEND
+ |
+ v
+USER
+```
+
+---
+
+# 7. APIs and How Applications Communicate
+
+## 7.1 What is an API?
+
+API stands for Application Programming Interface.
+
+An API is a set of rules and interfaces that allows different software applications to communicate with each other.
+
+In simple words, an API acts as a communication bridge between applications.
+
+### Real-Life Example: Restaurant
+
+Consider a restaurant:
+
+- Customer = Client.
+- Waiter = API.
+- Kitchen = Server.
+- Food = Response.
+
+Working:
+
+1. Customer places an order.
+2. Waiter communicates the order to the kitchen.
+3. Kitchen prepares the food.
+4. Waiter delivers the food to the customer.
+
+Similarly, an API accepts requests and communicates with the appropriate system to provide responses.
+
+## 7.2 Example: Weather Application
+
+A weather application needs weather information from an external service.
+
+It sends a request:
+
+```http
+GET /weather?city=Delhi
+```
+
+The API returns:
+
+```json
+{
+    "city": "Delhi",
+    "temperature": 30,
+    "condition": "Sunny"
+}
+```
+
+The frontend displays the information.
+
+## 7.3 Types of APIs
+
+### REST API
+
+REST stands for Representational State Transfer.
+
+It is an architectural style used for designing networked applications.
+
+REST APIs commonly use HTTP methods and resource-based URLs.
+
+### SOAP API
+
+SOAP stands for Simple Object Access Protocol.
+
+It is a protocol that commonly uses XML-based messaging.
+
+### GraphQL
+
+GraphQL is a query language and runtime that allows clients to request specific data.
+
+### WebSocket API
+
+WebSocket provides two-way communication between clients and servers over a persistent connection.
+
+### gRPC
+
+gRPC is a high-performance remote procedure call framework.
+
+## 7.4 REST API Examples
+
+| Endpoint | Operation |
+|---|---|
+| GET /users | Retrieve all users |
+| GET /users/1 | Retrieve user with ID 1 |
+| POST /users | Create a user |
+| PUT /users/1 | Replace user 1 |
+| DELETE /users/1 | Delete user 1 |
+
+**Important:** An API is not necessarily a website. APIs allow different software systems to communicate.
+
+---
+
+# 8. DNS, Domain and Hosting
+
+These three concepts are essential for understanding how websites become accessible over the internet.
+
+## 8.1 What is a Domain Name?
+
+A domain name is a human-readable address used to access a website.
+
+Examples:
+- google.com
+- amazon.com
+- wikipedia.org
+
+Computers communicate using IP addresses, but remembering IP addresses is difficult.
+
+Domain names make accessing websites easier.
+
+## 8.2 What is DNS?
+
+DNS stands for Domain Name System.
+
+DNS translates domain names into IP addresses.
+
+Example:
+
+```text
+www.example.com
+       |
+       v
+   DNS System
+       |
+       v
+   IP Address
+```
+
+## 8.3 DNS Resolution Process
+
+When a user enters a domain name:
+
+1. Browser checks its DNS cache.
+2. Operating system checks its DNS cache.
+3. DNS resolver is queried.
+4. Resolver may contact a Root DNS Server.
+5. Root server directs it to a TLD server.
+6. TLD server directs it to the authoritative DNS server.
+7. Authoritative server provides the required DNS record.
+8. The IP address is returned to the client.
+
+### Types of DNS Records
+
+| Record | Purpose |
+|---|---|
+| A | Maps a domain to an IPv4 address |
+| AAAA | Maps a domain to an IPv6 address |
+| CNAME | Maps one domain name to another |
+| MX | Specifies mail servers |
+| NS | Specifies authoritative name servers |
+| TXT | Stores text information |
+
+## 8.4 What is Web Hosting?
+
+Web hosting is a service that makes website files and application resources available over the internet.
+
+A hosting provider stores website resources on servers and makes them accessible to users.
+
+### Examples of Hosting Platforms
+
+- Amazon Web Services (AWS)
+- Microsoft Azure
+- Google Cloud
+- Vercel
+- Netlify
+- DigitalOcean
+
+## 8.5 Domain vs DNS vs Hosting
+
+| Domain | DNS | Hosting |
+|---|---|---|
+| Website address | Resolves domain names | Stores and serves website resources |
+| example.com | Finds the IP address | Provides server infrastructure |
+
+### Easy Analogy
+
+Consider a house:
+
+- Domain = House address.
+- DNS = Directory that helps locate the house.
+- Hosting = Actual house where your website lives.
+
+---
+
+# 9. Static vs Dynamic Websites
+
+Websites can be classified based on how their content is generated and delivered.
+
+## 9.1 Static Website
+
+A static website delivers prebuilt HTML, CSS, JavaScript and other resources to the browser.
+
+Its content generally remains the same for different visitors unless the website files are modified or client-side code changes the display.
+
+### Examples
+
+- Personal portfolio.
+- Company landing page.
+- Documentation website.
+- Simple informational website.
+
+### Advantages
+
+1. Fast loading.
+2. Simple deployment.
+3. Lower hosting cost.
+4. Less server-side complexity.
+5. Easier maintenance for small websites.
+
+## 9.2 Dynamic Website
+
+A dynamic website generates or customizes content based on user interaction, application logic or stored information.
+
+It commonly uses backend technologies and databases.
+
+### Examples
+
+- Facebook.
+- Instagram.
+- Amazon.
+- Banking applications.
+- Online learning platforms.
+
+### Advantages
+
+1. Personalized content.
+2. Database integration.
+3. User authentication.
+4. Interactive functionality.
+5. Real-time updates.
+
+## 9.3 Static vs Dynamic Comparison
+
+| Feature | Static Website | Dynamic Website |
+|---|---|---|
+| Content | Usually prebuilt | Generated or customized |
+| Database | Not required | Often required |
+| Backend | Not necessary | Commonly used |
+| Complexity | Lower | Higher |
+| Personalization | Limited | Extensive |
+| Example | Portfolio | E-commerce website |
+
+**Important:** A static website can still use JavaScript for interactivity. Similarly, not every dynamic website requires a database for every request.
+
+---
+
+# 10. Summary: How Everything Connects
+
+Consider an online shopping application.
+
+1. Software: The shopping application is a software system.
+2. Frontend: Displays products, buttons and images.
+3. Backend: Processes orders and business logic.
+4. Database: Stores users, products and orders.
+5. Browser: Displays the website.
+6. Client: Sends requests to the server.
+7. Server: Processes requests and returns responses.
+8. DNS: Resolves the domain name into an IP address.
+9. HTTP/HTTPS: Defines communication between client and server.
+10. API: Allows different software systems to communicate.
+11. Hosting: Makes the website accessible over the internet.
+12. Static/Dynamic: Describes how website content is delivered or generated.
+
+---
+
+# 11. Important Interview Questions
+
+1. What is software?
+2. What is the difference between system software and application software?
+3. What is the difference between frontend and backend?
+4. What is the role of a database?
+5. What happens internally when you open a website?
+6. What is client-server architecture?
+7. What is the difference between a client and a server?
+8. What is HTTP?
+9. What is HTTPS?
+10. What is the difference between HTTP and HTTPS?
+11. What are HTTP methods?
+12. What are HTTP status codes?
+13. What is the request-response lifecycle?
+14. What is an API?
+15. What is a REST API?
+16. What is DNS?
+17. What is a domain name?
+18. What is web hosting?
+19. What is the difference between DNS and hosting?
+20. What is the difference between static and dynamic websites?
+
+---
+
+# 12. Practical Activities
+
+Perform the following activities to understand the concepts practically.
+
+| No. | Practical Activity |
+|---|---|
+| 1 | Create a simple HTML webpage. |
+| 2 | Add CSS styling to the webpage. |
+| 3 | Add JavaScript button interaction. |
+| 4 | Open Browser Developer Tools using F12. |
+| 5 | Inspect the Network tab while opening a website. |
+| 6 | Observe HTTP request and response headers. |
+| 7 | Use `nslookup google.com` to understand DNS. |
+| 8 | Use `ping google.com` to understand network connectivity. |
+| 9 | Create a simple REST API using Node.js or Python. |
+
+---
+
+## Final Note
+
+Understanding how software and the internet work is the foundation of web development.
+
+Before learning advanced frameworks like React, Node.js, Django or Spring Boot, understand how browsers, servers, databases, HTTP, APIs and DNS work together.
+
+**Learn the fundamentals first, then start building real-world applications.**
+
+--!>
