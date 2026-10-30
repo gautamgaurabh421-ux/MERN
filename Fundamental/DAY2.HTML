@@ -1,0 +1,729 @@
+<!--# Git and Version Control
+Beginner-blue)
+
+
+## 📚 Table of Contents
+
+1. [What is Git?](#1-what-is-git)
+2. [Why Do We Need Version Control?](#2-why-do-we-need-version-control)
+3. [Git vs GitHub](#3-difference-between-git-and-github)
+4. [Git as a Distributed Version Control System](#4-git-as-a-distributed-version-control-system)
+5. [Initializing a Repository](#5-initializing-a-repository-git-init)
+6. [Configuring User Details](#6-configuring-user-details-git-config)
+7. [Tracking and Staging Files](#7-tracking-and-staging-files-git-add)
+8. [Cleaning and Removing Files](#8-cleaning-and-removing-files)
+9. [Cloning and Fetching Repositories](#9-cloning-and-fetching-repositories)
+10. [Committing Changes](#10-committing-changes-git-commit--m)
+11. [Practical: First Git Repository](#11-practical-first-git-repository)
+
+---
+
+## 1. What is Git?
+
+**Git is a free and open-source Distributed Version Control System (DVCS)** used to track changes in files and coordinate development work among multiple developers.
+
+In simple words, Git helps developers maintain different versions of their source code and track changes made to a project.
+
+### Why do we need Git?
+
+Suppose you are developing a website. Initially, your project contains:
+
+```text
+my-project/
+├── index.html
+├── style.css
+└── script.js
+```
+
+After making changes, you accidentally delete important code.
+
+Without version control, recovering the previous version may be difficult.
+
+With Git, you can:
+
+- Track changes in your code.
+- Restore previous versions.
+- Maintain project history.
+- Work with multiple developers.
+- Create separate branches.
+- Merge code changes.
+- Identify who made particular changes.
+
+### How Git Works
+
+```text
+       Developer
+           |
+           v
+      Modify Files
+           |
+           v
+       Git Tracks
+        Changes
+           |
+           v
+     Create Commit
+           |
+           v
+      Version History
+```
+
+---
+
+## 2. Why Do We Need Version Control?
+
+**Version Control** is a system that records changes made to files over time so that specific versions can be recalled later.
+
+### Problems Without Version Control
+
+1. Difficult to track changes.
+2. No proper history of modifications.
+3. Difficult to recover deleted code.
+4. Multiple developers may overwrite each other's work.
+5. Difficult to maintain different versions.
+
+### Benefits of Version Control
+
+| Benefit | Explanation |
+|---|---|
+| History Tracking | Records changes over time |
+| Rollback | Restores previous versions |
+| Collaboration | Multiple developers can work together |
+| Branching | Allows independent development |
+| Backup | Maintains project history |
+| Accountability | Records who made changes |
+| Comparison | Helps identify differences |
+
+### Types of Version Control Systems
+
+#### 1. Local Version Control System (LVCS)
+
+Version history is maintained locally on a single computer.
+
+```text
+Developer Computer
+        |
+        v
+  Local Database
+        |
+        v
+  Version History
+```
+
+#### 2. Centralized Version Control System (CVCS)
+
+A central server maintains the version history.
+
+```text
+        Central Server
+          /   |   \
+         /    |    \
+       Dev1  Dev2  Dev3
+```
+
+Examples:
+
+- SVN (Subversion)
+- CVS
+
+#### 3. Distributed Version Control System (DVCS)
+
+Every developer maintains a complete local repository copy, including its history.
+
+```text
+      Remote Repository
+          /   |   \
+         /    |    \
+       Dev1  Dev2  Dev3
+        |     |     |
+      Local Local  Local
+      Repo  Repo   Repo
+```
+
+Examples:
+
+- Git
+- Mercurial
+
+**Important:** Git is a Distributed Version Control System.
+
+---
+
+## 3. Difference Between Git and GitHub
+
+### What is Git?
+
+Git is a version control tool that runs on your computer and tracks changes in your project.
+
+### What is GitHub?
+
+GitHub is a cloud-based platform that hosts Git repositories and provides collaboration tools.
+
+### Git vs GitHub
+
+| Git | GitHub |
+|---|---|
+| Version Control System | Code Hosting Platform |
+| Tracks changes | Hosts repositories online |
+| Works locally | Provides online collaboration |
+| Command-line tool | Web interface and collaboration tools |
+| Developed by Linus Torvalds | Owned by Microsoft |
+
+### Other Git Hosting Platforms
+
+- GitLab
+- Bitbucket
+- Codeberg
+
+**Remember:**
+
+- Git = Version Control System.
+- GitHub = Platform for hosting and collaborating on Git repositories.
+
+---
+
+## 4. Git as a Distributed Version Control System
+
+Git is called a distributed version control system because every developer has a complete local repository containing the project history.
+
+### Main Components of Git
+
+1. **Working Directory:** Where files are created and modified.
+2. **Staging Area:** Where changes are selected for the next commit.
+3. **Local Repository:** Stores committed project versions and history.
+4. **Remote Repository:** Repository hosted on another system, such as GitHub.
+
+### Git Workflow
+
+![Git Workflow](images/git-workflow.png)
+
+```text
+Working Directory
+       |
+       | git add
+       v
+  Staging Area
+       |
+       | git commit
+       v
+ Local Repository
+       |
+       | git push
+       v
+Remote Repository
+```
+
+### Important Commands
+
+| Command | Purpose |
+|---|---|
+| `git status` | Check repository status |
+| `git add` | Stage changes |
+| `git commit` | Save a snapshot |
+| `git push` | Upload commits |
+| `git pull` | Fetch and integrate changes |
+| `git fetch` | Download remote updates |
+| `git clone` | Copy a remote repository locally |
+
+---
+
+## 5. Initializing a Repository: `git init`
+
+### What is a Git Repository?
+
+A Git repository is a project directory managed by Git, containing files and their version history.
+
+### What is `git init`?
+
+The `git init` command initializes a new Git repository in the current directory.
+
+**Syntax:**
+
+```bash
+git init
+```
+
+### Practical Example
+
+**Step 1: Create a project directory.**
+
+```bash
+mkdir my-project
+```
+
+**Step 2: Navigate into the directory.**
+
+```bash
+cd my-project
+```
+
+**Step 3: Initialize Git.**
+
+```bash
+git init
+```
+
+Git creates a hidden directory called `.git`.
+
+### What is the `.git` Directory?
+
+It stores the internal information required by Git to manage the repository.
+
+It contains:
+
+- Commit history and objects.
+- Branch information.
+- Repository configuration.
+- References.
+
+To see hidden files:
+
+```bash
+ls -a
+```
+
+---
+
+## 6. Configuring User Details: `git config`
+
+Git uses user identity information to associate commits with their authors.
+
+### Configure Username
+
+```bash
+git config --global user.name "Your Name"
+```
+
+Example:
+
+```bash
+git config --global user.name "Sushil Raj"
+```
+
+### Configure Email
+
+```bash
+git config --global user.email "your-email@example.com"
+```
+
+Use an email associated with your GitHub account if you want your commits linked to that account.
+
+### Configuration Levels
+
+| Level | Scope |
+|---|---|
+| `--system` | All users on the system |
+| `--global` | Current operating-system user |
+| `--local` | Current repository |
+
+### Check Configuration
+
+```bash
+git config --global user.name
+
+git config --global user.email
+
+git config --list
+```
+
+### Repository-Specific Configuration
+
+```bash
+git config --local user.name "Project Developer"
+
+git config --local user.email "developer@example.com"
+```
+
+**Note:** Local configuration takes precedence over global configuration for that repository.
+
+---
+
+## 7. Tracking and Staging Files: `git add`
+
+Git does not automatically include every newly created file in a commit.
+
+We use `git add` to move changes into the staging area.
+
+### Syntax
+
+```bash
+git add filename
+```
+
+### Example
+
+```bash
+touch index.html
+
+git add index.html
+```
+
+### Add All Changes
+
+```bash
+git add .
+```
+
+This stages new, modified and deleted files under the current directory and its subdirectories, subject to ignore rules.
+
+### Check Repository Status
+
+```bash
+git status
+```
+
+### Git File States
+
+| State | Meaning |
+|---|---|
+| Untracked | New file not yet tracked by Git |
+| Unmodified | Tracked file has no changes |
+| Modified | Tracked file has been changed |
+| Staged | Changes selected for next commit |
+| Committed | Changes saved in repository history |
+
+---
+
+## 8. Cleaning and Removing Files
+
+### Remove a Tracked File
+
+```bash
+git rm filename
+```
+
+This removes the file from the working directory and stages its deletion.
+
+### Unstage a File
+
+```bash
+git restore --staged filename
+```
+
+This removes the file from the staging area but keeps its working-directory changes.
+
+### Discard Unstaged Changes
+
+```bash
+git restore filename
+```
+
+This restores the file to the version in the index.
+
+**Warning:** This can permanently discard local changes.
+
+### Clean Untracked Files
+
+Preview the files that would be removed:
+
+```bash
+git clean -n
+```
+
+Remove untracked files:
+
+```bash
+git clean -f
+```
+
+Always inspect the preview before cleaning.
+
+---
+
+## 9. Cloning and Fetching Repositories
+
+### What is `git clone`?
+
+The `git clone` command creates a local copy of an existing Git repository.
+
+### Syntax
+
+```bash
+git clone repository-url
+```
+
+### Example
+
+```bash
+git clone https://github.com/user/project.git
+```
+
+### Clone with a Custom Directory Name
+
+```bash
+git clone https://github.com/user/project.git my-project
+```
+
+### What Happens Internally?
+
+1. Git connects to the remote repository.
+2. Downloads repository data.
+3. Creates a local repository.
+4. Checks out the appropriate branch.
+5. Configures the remote named `origin`.
+
+### What is `git fetch`?
+
+The `git fetch` command downloads updates from a remote repository without integrating them into the current branch.
+
+```bash
+git fetch origin
+```
+
+### Clone vs Fetch
+
+| git clone | git fetch |
+|---|---|
+| Creates a new local repository copy | Updates remote-tracking information |
+| Used to obtain a repository initially | Used to download later updates |
+| Sets up remote configuration | Does not integrate changes into current branch |
+
+### What is Origin?
+
+`origin` is the default name commonly assigned to the remote repository from which a project was cloned.
+
+Check remote details:
+
+```bash
+git remote -v
+```
+
+---
+
+## 10. Committing Changes: `git commit -m`
+
+### What is a Commit?
+
+A commit is a recorded snapshot of the staged changes in a Git repository.
+
+Each commit has:
+
+- A unique identifier (hash).
+- Author information.
+- Commit message.
+- Timestamp.
+- Parent commit reference(s), except for a root commit.
+
+### Syntax
+
+```bash
+git commit -m "commit message"
+```
+
+### Example
+
+```bash
+git commit -m "Add homepage"
+```
+
+### Complete Example
+
+```bash
+# Create a file
+touch index.html
+
+# Stage the file
+git add index.html
+
+# Commit the changes
+git commit -m "Add initial HTML page"
+```
+
+### View Commit History
+
+```bash
+git log
+```
+
+For compact history:
+
+```bash
+git log --oneline
+```
+
+### Good Commit Messages
+
+```bash
+git commit -m "Add login page"
+
+git commit -m "Fix navbar alignment"
+
+git commit -m "Update README documentation"
+
+git commit -m "Add student registration form"
+```
+
+Avoid unclear messages such as:
+
+```bash
+git commit -m "Changes"
+
+git commit -m "Update"
+
+git commit -m "Final"
+```
+
+**Remember:** `git add` stages changes, whereas `git commit` records the staged changes.
+
+---
+
+## 11. Practical: First Git Repository
+
+Let's create a project and perform the complete Git workflow.
+
+### Step 1: Create a Project
+
+```bash
+mkdir student-project
+
+cd student-project
+```
+
+### Step 2: Initialize Git
+
+```bash
+git init
+```
+
+### Step 3: Configure User Details
+
+```bash
+git config --global user.name "Your Name"
+
+git config --global user.email "your-email@example.com"
+```
+
+### Step 4: Create a File
+
+```bash
+touch README.md
+```
+
+Add the following content:
+
+```markdown
+# Student Project
+
+This is my first Git project.
+
+Learning Git and Version Control.
+```
+
+### Step 5: Check Status
+
+```bash
+git status
+```
+
+### Step 6: Stage the File
+
+```bash
+git add README.md
+```
+
+### Step 7: Commit Changes
+
+```bash
+git commit -m "Add initial README"
+```
+
+### Step 8: Check Commit History
+
+```bash
+git log --oneline
+```
+
+### Complete Workflow
+
+```text
+Create Project
+      |
+      v
+   git init
+      |
+      v
+ Create Files
+      |
+      v
+   git status
+      |
+      v
+    git add
+      |
+      v
+   git commit
+      |
+      v
+    git log
+```
+
+---
+
+## 12. Important Git Commands – Quick Revision
+
+| Command | Purpose |
+|---|---|
+| `git --version` | Check Git version |
+| `git init` | Initialize repository |
+| `git config` | Configure Git settings |
+| `git status` | Check repository status |
+| `git add filename` | Stage a particular file |
+| `git add .` | Stage changes under current directory |
+| `git rm filename` | Remove a tracked file |
+| `git restore filename` | Discard unstaged changes |
+| `git commit -m "message"` | Create a commit |
+| `git log` | View commit history |
+| `git clone URL` | Clone a repository |
+| `git fetch` | Download remote updates |
+| `git remote -v` | View remote repositories |
+| `git clean -n` | Preview untracked files for cleaning |
+
+---
+
+## 13. Important Interview Questions
+
+1. What is Git?
+2. Why do we need version control?
+3. What is the difference between Git and GitHub?
+4. What is a Distributed Version Control System?
+5. What is the difference between centralized and distributed version control?
+6. What is a Git repository?
+7. What is the purpose of the `.git` directory?
+8. What does `git init` do?
+9. Why do we configure username and email in Git?
+10. What is the difference between `git add` and `git commit`?
+11. What is the staging area?
+12. What is the difference between tracked and untracked files?
+13. What is the purpose of `git status`?
+14. What is the difference between `git clone` and `git fetch`?
+15. What is a commit?
+16. Why are commit messages important?
+17. What is the purpose of `git log`?
+18. What is the difference between `git rm` and `git restore`?
+19. What does `git clean` do?
+20. Can Git work without an internet connection?
+
+---
+
+## 14. Practical Assignments
+
+1. Install Git on your computer.
+2. Configure your Git username and email.
+3. Create a new directory and initialize a Git repository.
+4. Create three files: `index.html`, `style.css` and `script.js`.
+5. Stage all files using `git add .`.
+6. Create your first commit.
+7. Modify the HTML file and check repository status.
+8. Create another commit with a meaningful message.
+9. View commit history using `git log`.
+10. Clone an existing public GitHub repository.
+
+---
+
+## Conclusion
+
+Git is an essential tool in modern software development. It helps developers track changes, maintain project history, recover previous versions and collaborate effectively.
+
+Before learning advanced Git concepts such as branching, merging, pull requests and conflict resolution, understand repository initialization, configuration, staging, committing and cloning.
+
+**Learn the fundamentals practically instead of just memorizing commands.**-->
